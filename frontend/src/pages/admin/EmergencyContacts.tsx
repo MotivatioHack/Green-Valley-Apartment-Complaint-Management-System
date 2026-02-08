@@ -49,7 +49,7 @@ export default function EmergencyContacts() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/emergency-contacts', {
+      const response = await fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/emergency-contacts', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -93,8 +93,8 @@ export default function EmergencyContacts() {
       const token = localStorage.getItem('token');
       const method = editingContact ? 'PUT' : 'POST';
       const url = editingContact 
-        ? `http://localhost:5000/api/admin/emergency-contacts/${editingContact.id}`
-        : 'http://localhost:5000/api/admin/emergency-contacts';
+        ? `https://green-valley-apartment-complaint.onrender.com/api/admin/emergency-contacts/${editingContact.id}`
+        : 'https://green-valley-apartment-complaint.onrender.com/api/admin/emergency-contacts';
 
       const response = await fetch(url, {
         method,
@@ -120,7 +120,7 @@ export default function EmergencyContacts() {
     if (!confirm('Are you sure you want to delete this contact?')) return;
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/emergency-contacts/${id}`, {
+      const response = await fetch(`https://green-valley-apartment-complaint.onrender.com/api/admin/emergency-contacts/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -137,7 +137,7 @@ export default function EmergencyContacts() {
   const handleToggle = async (id: number) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/emergency-contacts/${id}/status`, {
+      const response = await fetch(`https://green-valley-apartment-complaint.onrender.com/api/admin/emergency-contacts/${id}/status`, {
         method: 'PATCH',
         headers: { 'Authorization': `Bearer ${token}` }
       });

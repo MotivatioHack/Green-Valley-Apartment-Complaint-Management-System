@@ -16,7 +16,7 @@ export default function ComplaintControl() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/complaints', {
+      const response = await fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/complaints', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -39,7 +39,7 @@ export default function ComplaintControl() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/complaints/status/${selectedComplaint.id}`, {
+      const response = await fetch(`https://green-valley-apartment-complaint.onrender.com/api/admin/complaints/status/${selectedComplaint.id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

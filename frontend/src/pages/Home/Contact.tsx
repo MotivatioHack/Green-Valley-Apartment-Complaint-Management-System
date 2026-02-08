@@ -46,7 +46,7 @@ const Contact = () => {
     try {
       console.log("Validation passed, sending data:", formData);
       
-      const response = await fetch("http://localhost:5000/api/contact/send-sms", {
+      const response = await fetch("https://green-valley-apartment-complaint.onrender.com/api/contact/send-sms", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

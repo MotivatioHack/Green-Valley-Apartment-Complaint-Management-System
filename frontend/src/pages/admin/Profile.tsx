@@ -25,7 +25,7 @@ export default function Profile() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/profile/me', {
+      const response = await fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/profile/me', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -55,7 +55,7 @@ export default function Profile() {
     setSubmitting(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/profile/update', {
+      const response = await fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/profile/update', {
         method: 'PUT',
         headers: { 
           'Authorization': `Bearer ${token}`,
@@ -100,7 +100,7 @@ export default function Profile() {
     setSubmitting(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/profile/password', {
+      const response = await fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/profile/password', {
         method: 'PUT',
         headers: { 
           'Authorization': `Bearer ${token}`,

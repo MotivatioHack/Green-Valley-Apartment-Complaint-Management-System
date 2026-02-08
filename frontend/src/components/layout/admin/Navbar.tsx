@@ -16,7 +16,7 @@ export function Navbar() {
   const fetchNavbarData = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/navbar/data', {
+      const response = await fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/navbar/data', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();

@@ -21,7 +21,7 @@ const Index = () => {
         const token = localStorage.getItem("token");
         
         // 1. Fetch unified overview data from backend
-        const response = await axios.get("http://localhost:5000/api/user/dashboard/overview", {
+        const response = await axios.get("https://green-valley-apartment-complaint.onrender.com/api/user/dashboard/overview", {
           headers: { 
             Authorization: `Bearer ${token}` 
           }

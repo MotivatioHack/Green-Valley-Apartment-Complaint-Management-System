@@ -22,7 +22,7 @@ export default function StaffManagement() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/staff', {
+      const response = await fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/staff', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -72,8 +72,8 @@ export default function StaffManagement() {
     const token = localStorage.getItem('token');
     const method = editingStaff ? 'PUT' : 'POST';
     const url = editingStaff 
-      ? `http://localhost:5000/api/admin/staff/${editingStaff.id}` 
-      : 'http://localhost:5000/api/admin/staff';
+      ? `https://green-valley-apartment-complaint.onrender.com/api/admin/staff/${editingStaff.id}` 
+      : 'https://green-valley-apartment-complaint.onrender.com/api/admin/staff';
 
     try {
       const response = await fetch(url, {
@@ -99,7 +99,7 @@ export default function StaffManagement() {
     if (!confirm('Are you sure you want to remove this staff member?')) return;
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:5000/api/admin/staff/${id}`, {
+      await fetch(`https://green-valley-apartment-complaint.onrender.com/api/admin/staff/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -113,7 +113,7 @@ export default function StaffManagement() {
   const toggleStatus = async (id: number) => {
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:5000/api/admin/staff/${id}/status`, {
+      await fetch(`https://green-valley-apartment-complaint.onrender.com/api/admin/staff/${id}/status`, {
         method: 'PATCH',
         headers: { 'Authorization': `Bearer ${token}` }
       });

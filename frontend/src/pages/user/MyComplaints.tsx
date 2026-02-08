@@ -62,7 +62,7 @@ const MyComplaints = () => {
     try {
       const token = localStorage.getItem("token");
       // ✅ FIX: Updated URL to match unified backend route
-      const response = await fetch("http://localhost:5000/api/complaints/my", {
+      const response = await fetch("https://green-valley-apartment-complaint.onrender.com/api/complaints/my", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

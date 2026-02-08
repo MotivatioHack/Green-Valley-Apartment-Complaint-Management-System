@@ -49,14 +49,14 @@ const app = express();
 // ==============================
 app.use(
   cors({
-    // Dynamically allow your frontend URL if you set it in Render, 
-    // otherwise fallback to localhost for development
     origin: [
-      process.env.FRONTEND_URL, 
-      "http://localhost:8080", 
-      "http://localhost:5173"
-    ].filter(Boolean), 
+      "https://green-valley-frontend-deployed.vercel.app", // Your production frontend
+      "http://localhost:5173",                            // Your local development
+      "http://localhost:8080"
+    ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
 

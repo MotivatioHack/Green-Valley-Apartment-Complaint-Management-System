@@ -19,7 +19,7 @@ export function TopNavbar() {
     const fetchNavbarProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/api/user/profile/navbar", {
+        const response = await axios.get("https://green-valley-apartment-complaint.onrender.com/api/user/profile/navbar", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(response.data);

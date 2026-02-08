@@ -30,7 +30,7 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/api/user/profile", {
+        const response = await axios.get("https://green-valley-apartment-complaint.onrender.com/api/user/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setFormData({
@@ -59,7 +59,7 @@ const Profile = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        "http://localhost:5000/api/user/profile",
+        "https://green-valley-apartment-complaint.onrender.com/api/user/profile",
         {
           name: formData.name,
           flat_number: formData.flat_number,

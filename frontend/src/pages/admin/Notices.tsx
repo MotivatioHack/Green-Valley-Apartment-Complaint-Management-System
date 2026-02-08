@@ -23,7 +23,7 @@ export default function Notices() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/notices', {
+      const response = await fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/notices', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -81,8 +81,8 @@ export default function Notices() {
       const token = localStorage.getItem('token');
       const method = editingNotice ? 'PUT' : 'POST';
       const url = editingNotice 
-        ? `http://localhost:5000/api/admin/notices/${editingNotice.id}`
-        : 'http://localhost:5000/api/admin/notices';
+        ? `https://green-valley-apartment-complaint.onrender.com/api/admin/notices/${editingNotice.id}`
+        : 'https://green-valley-apartment-complaint.onrender.com/api/admin/notices';
 
       // Priority Mapping (Write): Map UI dropdown to existing DB columns
       const pinnedValue = (formData.priority === 'important' || formData.priority === 'urgent') ? 1 : 0;
@@ -121,7 +121,7 @@ export default function Notices() {
     if (!confirm('Are you sure you want to delete this notice?')) return;
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:5000/api/admin/notices/${id}`, {
+      await fetch(`https://green-valley-apartment-complaint.onrender.com/api/admin/notices/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -136,7 +136,7 @@ export default function Notices() {
   const toggleActive = async (id: string) => {
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:5000/api/admin/notices/${id}/visibility`, {
+      await fetch(`https://green-valley-apartment-complaint.onrender.com/api/admin/notices/${id}/visibility`, {
         method: 'PATCH',
         headers: { 'Authorization': `Bearer ${token}` }
       });

@@ -58,10 +58,10 @@ export default function AmenityManagement() {
       const token = localStorage.getItem('token');
       
       const [amenityRes, bookingRes] = await Promise.all([
-        fetch('http://localhost:5000/api/admin/amenities', {
+        fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/amenities', {
           headers: { 'Authorization': `Bearer ${token}` }
         }),
-        fetch('http://localhost:5000/api/admin/amenity-bookings', {
+        fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/amenity-bookings', {
           headers: { 'Authorization': `Bearer ${token}` }
         })
       ]);
@@ -116,8 +116,8 @@ export default function AmenityManagement() {
       const token = localStorage.getItem('token');
       const method = editingAmenity ? 'PUT' : 'POST';
       const url = editingAmenity 
-        ? `http://localhost:5000/api/admin/amenities/${editingAmenity.id}`
-        : 'http://localhost:5000/api/admin/amenities';
+        ? `https://green-valley-apartment-complaint.onrender.com/api/admin/amenities/${editingAmenity.id}`
+        : 'https://green-valley-apartment-complaint.onrender.com/api/admin/amenities';
 
       const response = await fetch(url, {
         method,
@@ -139,7 +139,7 @@ export default function AmenityManagement() {
     if (!confirm('Permanently delete this amenity?')) return;
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/amenities/${id}`, {
+      const response = await fetch(`https://green-valley-apartment-complaint.onrender.com/api/admin/amenities/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -155,7 +155,7 @@ export default function AmenityManagement() {
   const handleToggleAmenity = async (id: number) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/amenities/${id}/status`, {
+      const response = await fetch(`https://green-valley-apartment-complaint.onrender.com/api/admin/amenities/${id}/status`, {
         method: 'PATCH',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -172,7 +172,7 @@ export default function AmenityManagement() {
   const handleBookingAction = async (bookingId: number, action: 'Approved' | 'Rejected' | 'Cancelled') => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/amenity-bookings/${bookingId}/status`, {
+      const response = await fetch(`https://green-valley-apartment-complaint.onrender.com/api/admin/amenity-bookings/${bookingId}/status`, {
         method: 'PATCH',
         headers: { 
           'Authorization': `Bearer ${token}`,
@@ -202,7 +202,7 @@ export default function AmenityManagement() {
     }
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/api/admin/amenity-bookings/downtime', {
+      const res = await fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/amenity-bookings/downtime', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(downtimeForm)

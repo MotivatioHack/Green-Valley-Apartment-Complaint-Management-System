@@ -71,8 +71,8 @@ const BookAmenity = () => {
       const headers = { Authorization: `Bearer ${token}` };
 
       const [amenitiesRes, myBookingsRes] = await Promise.all([
-        axios.get("http://localhost:5000/api/amenities", { headers }),
-        axios.get("http://localhost:5000/api/amenities/my-bookings", { headers }),
+        axios.get("https://green-valley-apartment-complaint.onrender.com/api/amenities", { headers }),
+        axios.get("https://green-valley-apartment-complaint.onrender.com/api/amenities/my-bookings", { headers }),
       ]);
 
       setAmenities(amenitiesRes.data);
@@ -137,7 +137,7 @@ const BookAmenity = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        "http://localhost:5000/api/amenities/book",
+        "https://green-valley-apartment-complaint.onrender.com/api/amenities/book",
         {
           amenity_id: selectedAmenity,
           booking_date: format(selectedDate, "yyyy-MM-dd"),

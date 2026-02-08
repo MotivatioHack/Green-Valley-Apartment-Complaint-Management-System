@@ -63,7 +63,7 @@ const RaiseComplaint = () => {
        * and router.post('/raise', ...) in complaintRoutes.js
        */
       await axios.post(
-        "http://localhost:5000/api/complaints/raise",
+        "https://green-valley-apartment-complaint.onrender.com/api/complaints/raise",
         { 
           title, 
           category: selectedCategory, 

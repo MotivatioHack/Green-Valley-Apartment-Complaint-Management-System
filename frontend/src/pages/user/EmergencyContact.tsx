@@ -38,7 +38,7 @@ const EmergencyContact = () => {
     const fetchContacts = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/api/emergency-contacts", {
+        const response = await axios.get("https://green-valley-apartment-complaint.onrender.com/api/emergency-contacts", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setContacts(response.data);

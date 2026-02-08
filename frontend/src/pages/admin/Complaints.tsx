@@ -21,7 +21,7 @@ export default function Complaints() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/complaints', {
+      const response = await fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/complaints', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -38,7 +38,7 @@ export default function Complaints() {
     try {
       const token = localStorage.getItem('token');
       // Dynamic fetch based on the category of the currently opened complaint
-      const response = await fetch(`http://localhost:5000/api/admin/complaints/staff?category=${encodeURIComponent(category)}`, {
+      const response = await fetch(`https://green-valley-apartment-complaint.onrender.com/api/admin/complaints/staff?category=${encodeURIComponent(category)}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -85,7 +85,7 @@ export default function Complaints() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/complaints/${selectedComplaint.id}`, {
+      const response = await fetch(`https://green-valley-apartment-complaint.onrender.com/api/admin/complaints/${selectedComplaint.id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -14,7 +14,7 @@ export default function Residents() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/residents', {
+      const response = await fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/residents', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -45,7 +45,7 @@ export default function Residents() {
     const newStatus = resident.status === 'active' ? 'inactive' : 'active';
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/residents/${resident.id}/status`, {
+      const response = await fetch(`https://green-valley-apartment-complaint.onrender.com/api/admin/residents/${resident.id}/status`, {
         method: 'PUT',
         headers: { 
             'Authorization': `Bearer ${token}`,
@@ -71,7 +71,7 @@ export default function Residents() {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/residents/${id}`, {
+      const response = await fetch(`https://green-valley-apartment-complaint.onrender.com/api/admin/residents/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

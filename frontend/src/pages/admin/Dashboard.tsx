@@ -59,7 +59,7 @@ export default function Dashboard() {
     const fetchDashboardData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:5000/api/admin/dashboard/stats', {
+        const response = await fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/dashboard/stats', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'

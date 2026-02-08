@@ -74,7 +74,7 @@ const Notices = () => {
     const fetchNotices = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/api/notices", {
+        const response = await axios.get("https://green-valley-apartment-complaint.onrender.com/api/notices", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setNotices(response.data);

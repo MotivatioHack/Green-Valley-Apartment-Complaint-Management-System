@@ -19,7 +19,7 @@ export default function Reports() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/reports/system', {
+      const response = await fetch('https://green-valley-apartment-complaint.onrender.com/api/admin/reports/system', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
