@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .admin-theme {
+    /* Gaming/Cyber Theme - Command Center */
+    --background: 222 47% 3%;
+    --foreground: 0 0% 100%;
+
+    --card: 222 47% 6%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 222 47% 6%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 187 85% 53%;
+    --primary-foreground: 222 47% 3%;
+
+    --secondary: 258 90% 66%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 258 90% 66%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 3%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 217 33% 20%;
+    --input: 217 33% 17%;
+    --ring: 187 85% 53%;
+
+    --radius: 0.75rem;
+
+    /* Cyber specific */
+    --cyber-glow: 0 0 20px hsl(187 85% 53% / 0.3);
+    --cyber-glow-violet: 0 0 20px hsl(258 90% 66% / 0.3);
+    --glass-bg: hsl(222 47% 6% / 0.8);
+    --glass-border: hsl(187 85% 53% / 0.2);
+
+    --sidebar-background: 222 47% 4%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 187 85% 53%;
+    --sidebar-primary-foreground: 222 47% 3%;
+    --sidebar-accent: 217 33% 12%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 187 85% 53%;
+    --sidebar-ring: 187 85% 53%;
+  }
+
+  .admin-theme * {
+    @apply border-border;
+  }
+
+  .admin-theme {
+    @apply bg-background text-foreground antialiased;
+    background: linear-gradient(135deg, hsl(222 47% 3%) 0%, hsl(222 47% 7%) 100%);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .admin-theme .cyber-card {
+    @apply bg-card/80 backdrop-blur-sm border border-primary/20 rounded-lg;
+    box-shadow: 0 0 20px hsl(187 85% 53% / 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .admin-theme .cyber-card:hover {
+    border-color: hsl(187 85% 53% / 0.4);
+    box-shadow: 0 0 30px hsl(187 85% 53% / 0.15);
+  }
+
+  .admin-theme .cyber-glow {
+    box-shadow: 0 0 20px hsl(187 85% 53% / 0.3);
+  }
+
+  .admin-theme .cyber-glow-violet {
+    box-shadow: 0 0 20px hsl(258 90% 66% / 0.3);
+  }
+
+  .admin-theme .cyber-text-glow {
+    text-shadow: 0 0 10px hsl(187 85% 53% / 0.5);
+  }
+
+  .admin-theme .cyber-btn {
+    @apply border border-primary/50 bg-transparent text-primary font-medium px-4 py-2 rounded-lg transition-all duration-300;
+  }
+
+  .admin-theme .cyber-btn:hover {
+    @apply bg-primary/10 border-primary;
+    box-shadow: 0 0 15px hsl(187 85% 53% / 0.3);
+  }
+
+  .admin-theme .cyber-btn-solid {
+    @apply bg-primary text-primary-foreground font-medium px-4 py-2 rounded-lg transition-all duration-300;
+  }
+
+  .admin-theme .cyber-btn-solid:hover {
+    box-shadow: 0 0 20px hsl(187 85% 53% / 0.5);
+  }
+
+  .admin-theme .cyber-input {
+    @apply bg-muted/50 border border-primary/20 rounded-lg px-4 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-all duration-300;
+  }
+
+  .admin-theme .cyber-input:focus {
+    box-shadow: 0 0 10px hsl(187 85% 53% / 0.2);
+  }
+
+  .admin-theme .cyber-table-row {
+    @apply border-b border-primary/10 transition-all duration-200;
+  }
+
+  .admin-theme .cyber-table-row:hover {
+    @apply bg-primary/5;
+  }
+
+  .admin-theme .sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-lg text-muted-foreground transition-all duration-300 cursor-pointer;
+  }
+
+  .admin-theme .sidebar-item:hover {
+    @apply bg-primary/10 text-foreground;
+  }
+
+  .admin-theme .sidebar-item.active {
+    @apply bg-primary/20 text-primary font-semibold;
+    box-shadow: 0 0 15px hsl(187 85% 53% / 0.2);
+  }
+
+  .admin-theme .stat-card {
+    @apply bg-card/80 backdrop-blur-sm border border-primary/20 rounded-lg p-6 relative overflow-hidden;
+    box-shadow: 0 0 20px hsl(187 85% 53% / 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .admin-theme .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, hsl(187 85% 53%), transparent);
+  }
+
+  .admin-theme .glass-navbar {
+    @apply bg-card/60 backdrop-blur-md border-b border-primary/20;
+  }
+
+  .admin-theme .status-badge {
+    @apply px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  .admin-theme .status-pending {
+    @apply bg-[hsl(var(--warning)/0.2)] text-[hsl(var(--warning))] border border-[hsl(var(--warning)/0.3)];
+  }
+
+  .admin-theme .status-progress {
+    @apply bg-primary/20 text-primary border border-primary/30;
+  }
+
+  .admin-theme .status-resolved {
+    @apply bg-[hsl(var(--success)/0.2)] text-[hsl(var(--success))] border border-[hsl(var(--success)/0.3)];
+  }
+
+  .admin-theme .status-rejected {
+    @apply bg-destructive/20 text-destructive border border-destructive/30;
+  }
+}
+
+/* Custom scrollbar for cyber theme */
+.admin-theme ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.admin-theme ::-webkit-scrollbar-track {
+  background: hsl(222 47% 6%);
+}
+
+.admin-theme ::-webkit-scrollbar-thumb {
+  background: hsl(187 85% 53% / 0.3);
+  border-radius: 4px;
+}
+
+.admin-theme ::-webkit-scrollbar-thumb:hover {
+  background: hsl(187 85% 53% / 0.5);
+}
