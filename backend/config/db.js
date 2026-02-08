@@ -1,38 +1,49 @@
 const mysql = require("mysql2");
 
-// Use a connection pool for better performance in a deployed environment
+// Create a connection pool to manage multiple connections efficiently
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
+  // Port 10973 for Railway external; defaults to 3306 if env is missing
   port: Number(process.env.DB_PORT) || 3306,
   user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
+  // Ensure this is set as DB_PASSWORD in your Render Environment variables
+  password: process.env.DB_PASSWORD, 
   database: process.env.DB_NAME,
-  // Railway requires SSL for external connections
+  
+  // MANDATORY for connecting from Render to Railway
   ssl: {
     rejectUnauthorized: false,
   },
+  
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  // Shorten the timeout so the app fails/restarts faster if the DB is down
+  
+  // Prevents the app from hanging if the DB is unreachable
   connectTimeout: 10000 
 });
 
-// Immediate connection test
+// Test the connection immediately on startup
 pool.getConnection((err, connection) => {
   if (err) {
     console.error("❌ Database Connection Failed!");
+    console.error("Error Code:", err.code); // e.g., 'ER_ACCESS_DENIED_ERROR'
     console.error("Error Message:", err.message);
-    console.error("Target Host:", process.env.DB_HOST);
-    // Don't kill the process immediately in development, 
-    // but in production (Render), this helps trigger a redeploy/fix.
+    
+    // Debugging info (helps identify if variables are missing)
+    console.error("Connecting as:", process.env.DB_USER || "MISSING_USER");
+    console.error("To Host:", process.env.DB_HOST || "MISSING_HOST");
+    
+    // In Render, exiting with 1 tells the platform the service crashed 
+    // so it can attempt a clean restart.
     process.exit(1);
   }
 
   if (connection) {
-    console.log("✅ MySQL Database Connected Successfully to Railway");
+    console.log("✅ MySQL Database Connected Successfully to Railway!");
     connection.release();
   }
 });
 
+// Export the promise-based version for async/await usage in routes
 module.exports = pool.promise();
