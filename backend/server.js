@@ -5,7 +5,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 
-// Database
+// Database configuration
 const db = require("./config/db");
 
 // ==============================
@@ -49,7 +49,13 @@ const app = express();
 // ==============================
 app.use(
   cors({
-    origin: ["http://localhost:8080", "http://localhost:5173"],
+    // Dynamically allow your frontend URL if you set it in Render, 
+    // otherwise fallback to localhost for development
+    origin: [
+      process.env.FRONTEND_URL, 
+      "http://localhost:8080", 
+      "http://localhost:5173"
+    ].filter(Boolean), 
     credentials: true,
   })
 );
@@ -63,14 +69,18 @@ app.use(
 // ==============================
 // 6. Database Connection Check
 // ==============================
+// This confirms the pool is working before the server starts accepting traffic
 db.getConnection()
   .then((connection) => {
-    console.log("✅ MySQL Database Connected Successfully");
+    console.log("✅ MySQL Database Connection Verified");
     connection.release();
   })
   .catch((err) => {
-    console.error("❌ Database Connection Failed:", err.message);
-    process.exit(1);
+    console.error("❌ Database Connection Failed!");
+    console.error("Error Details:", err.message);
+    console.error("Connection attempted to:", process.env.DB_HOST || "UNDEFINED HOST");
+    // Critical for Render: If DB fails, exit so the service can restart or alert you
+    process.exit(1); 
   });
 
 // ==============================
@@ -106,7 +116,11 @@ app.use("/api/contact", contactRoutes);
 // 8. Health Check
 // ==============================
 app.get("/", (req, res) => {
-  res.send("🚀 Green Valley API is running...");
+  res.status(200).json({ 
+    status: "online", 
+    message: "🚀 Green Valley API is running...",
+    timestamp: new Date().toISOString()
+  });
 });
 
 // ==============================
@@ -115,6 +129,6 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Backend running on http://localhost:${PORT}`);
-  console.log("📡 Logging enabled. Watching for API requests...");
+  console.log(`🚀 Backend running on port ${PORT}`);
+  console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
