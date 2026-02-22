@@ -62,8 +62,11 @@ app.use(
 
 app.use(express.json());
 
+// Force morgan to log to standard output (white/normal text)
 app.use(
-  morgan(":method :url :status :res[content-length] - :response-time ms")
+  morgan(":method :url :status :res[content-length] - :response-time ms", {
+    stream: process.stdout 
+  })
 );
 
 // ==============================
