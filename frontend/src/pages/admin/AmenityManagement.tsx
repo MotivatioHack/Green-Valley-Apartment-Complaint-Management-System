@@ -51,7 +51,7 @@ export default function AmenityManagement() {
     status: 'available',
   });
 
-  // 1. FETCH LIVE DATA (Updated to sync Expired statuses automatically on load)
+  // 1. FETCH LIVE DATA (Updated to handle nested data objects and case normalization)
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -69,8 +69,12 @@ export default function AmenityManagement() {
       const amenityData = await amenityRes.json();
       const bookingData = await bookingRes.json();
       
-      setAmenities(Array.isArray(amenityData) ? amenityData : []);
-      setBookings(Array.isArray(bookingData) ? bookingData : []);
+      // FIX: Handle cases where API returns { success: true, data: [...] }
+      const finalAmenities = Array.isArray(amenityData) ? amenityData : (amenityData.data || []);
+      const finalBookings = Array.isArray(bookingData) ? bookingData : (bookingData.data || []);
+
+      setAmenities(finalAmenities);
+      setBookings(finalBookings);
       
     } catch (error) {
       console.error("Fetch error:", error);
@@ -101,7 +105,7 @@ export default function AmenityManagement() {
       name: amenity.name,
       description: amenity.description,
       icon_name: amenity.icon_name || 'Building',
-      status: amenity.status,
+      status: amenity.status?.toLowerCase() || 'available', // Normalize casing
     });
     setShowAmenityModal(true);
   };
@@ -168,7 +172,6 @@ export default function AmenityManagement() {
     }
   };
 
-  // 2. UPDATED BOOKING ACTION (Includes Admin Remarks)
   const handleBookingAction = async (bookingId: number, action: 'Approved' | 'Rejected' | 'Cancelled') => {
     try {
       const token = localStorage.getItem('token');
@@ -194,7 +197,6 @@ export default function AmenityManagement() {
     }
   };
 
-  // 3. DOWNTIME SCHEDULER LOGIC
   const handleScheduleDowntime = async () => {
     if(!downtimeForm.amenity_id || !downtimeForm.start_datetime || !downtimeForm.end_datetime) {
         toast.error('Please fill all maintenance details');
@@ -275,17 +277,17 @@ export default function AmenityManagement() {
       {activeTab === 'amenities' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {amenities.map((amenity) => (
-            <div key={amenity.id} className={`cyber-card p-6 ${amenity.status === 'closed' ? 'opacity-50' : ''}`}>
+            <div key={amenity.id} className={`cyber-card p-6 ${amenity.status?.toLowerCase() === 'closed' ? 'opacity-50' : ''}`}>
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center"><Building className="w-6 h-6 text-primary" /></div>
                   <div>
                     <h3 className="font-semibold text-foreground">{amenity.name}</h3>
-                    <p className={`text-sm capitalize ${getStatusColor(amenity.status)}`}>{amenity.status.replace('-', ' ')}</p>
+                    <p className={`text-sm capitalize ${getStatusColor(amenity.status)}`}>{amenity.status?.replace('-', ' ')}</p>
                   </div>
                 </div>
                 <button onClick={() => handleToggleAmenity(amenity.id)} className="text-primary">
-                  {amenity.status === 'available' ? <ToggleRight className="w-8 h-8" /> : <ToggleLeft className="w-8 h-8 text-muted-foreground" />}
+                  {amenity.status?.toLowerCase() === 'available' ? <ToggleRight className="w-8 h-8" /> : <ToggleLeft className="w-8 h-8 text-muted-foreground" />}
                 </button>
               </div>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-3">{amenity.description}</p>
