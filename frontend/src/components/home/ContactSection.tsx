@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { Send, CheckCircle } from "lucide-react";
 
@@ -33,14 +34,28 @@ const ContactSection = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (validate()) {
-      setIsSubmitted(true);
-      setFormData({ name: "", flatNumber: "", message: "" });
-      setTimeout(() => setIsSubmitted(false), 5000);
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  
+  if (validate()) {
+    try {
+      // 1. Send the data to your specific backend endpoint
+      const response = await axios.post(
+        "https://green-valley-apartment-complaint.onrender.com/api/contact/send-sms", 
+        formData
+      );
+
+      if (response.data.success) {
+        setIsSubmitted(true);
+        setFormData({ name: "", flatNumber: "", message: "" });
+        setTimeout(() => setIsSubmitted(false), 5000);
+      }
+    } catch (error: any) {
+      console.error("❌ SMS API Error:", error.response?.data || error.message);
+      alert("Failed to send message. Please try again later.");
     }
-  };
+  }
+};
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
